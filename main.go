@@ -12,6 +12,11 @@ var lr linkring
 func handler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
+		if r.URL.Path != "/" {
+			http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+			return
+		}
+
 		var link twentynine.Link
 		if err := json.NewDecoder(r.Body).Decode(&link); err != nil {
 			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
@@ -34,6 +39,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		json.NewEncoder(w).Encode(lr.Links())
 	case http.MethodDelete:
+		if r.URL.Path != "/" {
+			http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+			return
+		}
+
+		lr = linkring{}
+
 	default:
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 	}
