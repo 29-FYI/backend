@@ -1,2 +1,6 @@
 github.com/29-FYI/twentynine v0.1.2 h1:zqF/r8cR/1+m53WCPAbHUgKOz6jSxk2wno5hH8L64RY=
 github.com/29-FYI/twentynine v0.1.2/go.mod h1:MXbLewW9iEnx/I2eLPKGP0UoTyuzIW7RoXEfCC5cm+I=
+github.com/go-chi/chi/v5 v5.0.3 h1:khYQBdPivkYG1s1TAzDQG1f6eX4kD2TItYVZexL5rS4=
+github.com/go-chi/chi/v5 v5.0.3/go.mod h1:DslCQbL2OYiznFReuXYUmQ2hGd1aDpCnlMNITLSKoi8=
+github.com/go-chi/cors v1.2.0 h1:tV1g1XENQ8ku4Bq3K9ub2AtgG+p16SmzeMSGTwrOKdE=
+github.com/go-chi/cors v1.2.0/go.mod h1:sSbTewc+6wYHBBCW7ytsFSn836hqM7JxpglAy2Vzc58=

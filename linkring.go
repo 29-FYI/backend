@@ -12,21 +12,16 @@ type linkring struct {
 	i     int
 }
 
-func (lr linkring) LinkLink(link twentynine.Link) (linkring, bool) {
+func (lr linkring) LinkLink(link twentynine.Link) (nlr linkring, ok bool) {
 	if len(link.Headline) < 8 || len(link.URL) < 8 || len(link.Headline) > 128 || len(link.URL) > 128 {
-		return lr, false
+		return
 	}
-	if !utf8.ValidString(link.Headline) || !utf8.ValidString(link.Headline) {
-		return lr, false
+	if !utf8.ValidString(link.Headline) || !utf8.ValidString(link.URL) {
+		return
 	}
-	u, err := url.Parse(link.URL)
-	if err != nil {
-		return lr, false
+	if _, err := url.Parse(link.URL); err != nil {
+		return
 	}
-	if u.Scheme != "https" {
-		return lr, false
-	}
-
 	lr.links[lr.i] = link
 	lr.i = (lr.i + 1) % twentynine.TwentyNine
 	return lr, true
