@@ -27,17 +27,19 @@ func (lr linkring) LinkLink(link twentynine.Link) (nlr linkring, ok bool) {
 	return lr, true
 }
 
-func (lr linkring) Link(i int) (link twentynine.Link) {
+func (lr linkring) Link(i int) (link twentynine.Link, ok bool) {
 	if i > twentynine.TwentyNine {
 		return
 	}
-	return lr.links[(twentynine.TwentyNine-i-1+lr.i)%twentynine.TwentyNine]
+	link = lr.links[(twentynine.TwentyNine-i-1+lr.i)%twentynine.TwentyNine]
+	ok = true
+	return
 }
 
 func (lr linkring) Links() (links []twentynine.Link) {
 	links = make([]twentynine.Link, 0)
 	for i := 0; i < twentynine.TwentyNine; i++ {
-		link := lr.Link(i)
+		link, _ := lr.Link(i)
 		if link.Headline == "" {
 			break
 		}
