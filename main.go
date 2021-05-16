@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
@@ -11,7 +13,8 @@ import (
 )
 
 type twentyninefyi struct {
-	lr linkring
+	lr     linkring
+	logger *log.Logger
 }
 
 func (tnfyi *twentyninefyi) Links(w http.ResponseWriter, r *http.Request) {
@@ -49,7 +52,17 @@ func (tnfyi *twentyninefyi) Handler() http.Handler {
 }
 
 func main() {
-	tnfyi := twentyninefyi{}
+	// logger
+	logger := log.New(os.Stderr, "", log.Lshortfile)
+
+	// handler
+	tnfyi := twentyninefyi{
+		logger: logger,
+	}
 	hndlr := tnfyi.Handler()
-	http.ListenAndServe(":http", hndlr)
+
+	// HTTP
+	if err := http.ListenAndServe(":http", hndlr); err != nil {
+		logger.Fatalf("HTTP server: %s", err)
+	}
 }
